@@ -1,0 +1,52 @@
+[build-system]
+requires = ["hatchling>=1.21"]
+build-backend = "hatchling.build"
+
+[project]
+name = "autobrief"
+version = "1.0.0"
+description = "AutoBrief - Automated Intelligence Report Generator (Python CLI automation)"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+keywords = ["automation", "reporting", "cli", "scheduler", "api"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Environment :: Console",
+    "Topic :: Office/Business",
+]
+dependencies = [
+    "requests>=2.31",       # HTTP client for the API layer
+    "pandas>=2.1",          # data cleaning and statistics
+    "matplotlib>=3.8",      # report charts
+    "jinja2>=3.1",          # HTML report template
+    "reportlab>=4.0",       # PDF report
+    "python-dotenv>=1.0",   # .env configuration
+    "schedule>=1.2",        # lightweight in-process scheduler
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "responses>=0.25",      # mock HTTP calls in tests
+    "pypdf>=4.0",           # verify PDF content in tests
+]
+
+[project.scripts]
+autobrief = "autobrief.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/autobrief"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]

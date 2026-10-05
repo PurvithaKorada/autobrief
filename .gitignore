@@ -1,0 +1,25 @@
+# Secrets - never commit
+.env
+*.env
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+
+# Runtime output (folders are kept via .gitkeep)
+reports/*
+!reports/.gitkeep
+logs/*
+!logs/.gitkeep
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store

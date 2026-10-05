@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AutoBrief - {{ location }} - {{ generated_at }}</title>
+<style>
+  :root { --navy:#0B1F3A; --teal:#0E9AA7; --ink:#1E293B; --muted:#64748B; --line:#E2E8F0; --bg:#F1F5F9; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+         font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; line-height:1.55; }
+  .page { max-width: 900px; margin: 32px auto; background:#fff; border-radius:12px; overflow:hidden;
+          box-shadow: 0 8px 30px rgba(11,31,58,.12); }
+  header { background: linear-gradient(135deg, var(--navy), #14396B); color:#fff; padding:36px 44px; }
+  header .brand { letter-spacing:.35em; font-weight:800; font-size:14px; color:#7DD3DB; }
+  header h1 { margin:6px 0 18px; font-size:30px; font-weight:700; }
+  header .meta { display:flex; gap:32px; flex-wrap:wrap; font-size:13px; color:#CBD5E1; }
+  header .meta > div { margin-right:32px; }
+  header .meta b { color:#fff; display:block; font-size:14px; }
+  section { padding: 26px 44px; border-top:1px solid var(--line); }
+  h2 { font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--teal); margin:0 0 14px; }
+  .summary { font-size:17px; border-left:4px solid var(--teal); padding:4px 0 4px 16px; margin:0; }
+  .cards { display:grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap:14px; }
+  .card { border:1px solid var(--line); border-radius:10px; padding:16px; background:#F8FAFC; }
+  .card .label { font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:.06em; }
+  .card .value { font-size:26px; font-weight:700; color:var(--navy); margin:4px 0; }
+  .card .detail { font-size:12px; color:var(--muted); }
+  .now { margin-top:14px; font-size:14px; color:var(--muted); }
+  .now b { color:var(--ink); }
+  img.chart { width:100%; height:auto; margin: 4px 0 12px; }
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  th { text-align:right; background:var(--navy); color:#fff; padding:9px 12px; font-weight:600; }
+  td { text-align:right; padding:8px 12px; border-bottom:1px solid var(--line); }
+  th:first-child, td:first-child { text-align:left; }
+  tbody tr:nth-child(even) { background:#F8FAFC; }
+  ul.insights { margin:0; padding:0; list-style:none; }
+  ul.insights li { padding:10px 14px 10px 38px; position:relative; border-bottom:1px solid var(--line); }
+  ul.insights li::before { content:"\2022"; position:absolute; left:16px; color:var(--teal); font-size:22px; line-height:1.1; }
+  dl { display:grid; grid-template-columns: 140px 1fr; gap:6px 16px; margin:0; font-size:14px; }
+  dt { color:var(--muted); } dd { margin:0; word-break:break-all; }
+  footer { background:var(--navy); color:#94A3B8; text-align:center; font-size:12px; padding:16px; }
+  .note { font-size:12px; color:var(--muted); margin-top:10px; }
+  @media print { body { background:#fff; } .page { box-shadow:none; margin:0; } }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="brand">AUTOBRIEF</div>
+    <h1>Automated Intelligence Report</h1>
+    <div class="meta">
+      <div>Generated<b>{{ generated_at }}</b></div>
+      <div>Source<b>{{ source_name }}</b></div>
+      <div>Location<b>{{ location }}</b></div>
+    </div>
+  </header>
+
+  <section>
+    <h2>Executive summary</h2>
+    <p class="summary">{{ summary }}</p>
+  </section>
+
+  <section>
+    <h2>Key metrics</h2>
+    <div class="cards">
+      {% for m in metrics %}
+      <div class="card"><div class="label">{{ m.label }}</div><div class="value">{{ m.value }}</div><div class="detail">{{ m.detail }}</div></div>
+      {% endfor %}
+    </div>
+    {% if current_line %}<p class="now">Current conditions: {{ current_line }}</p>{% endif %}
+  </section>
+
+  <section>
+    <h2>Data analysis</h2>
+    <img class="chart" alt="Temperature chart" src="data:image/png;base64,{{ temperature_chart }}">
+    <img class="chart" alt="Precipitation and wind chart" src="data:image/png;base64,{{ precipitation_chart }}">
+    <table>
+      <thead><tr><th>Date</th><th>High ({{ units.temp }})</th><th>Low ({{ units.temp }})</th><th>Mean ({{ units.temp }})</th><th>Rain ({{ units.precip }})</th><th>Wind ({{ units.wind }})</th></tr></thead>
+      <tbody>
+      {% for r in rows %}
+        <tr><td>{{ r.date }}</td><td>{{ r.high }}</td><td>{{ r.low }}</td><td>{{ r.mean }}</td><td>{{ r.rain }}</td><td>{{ r.wind }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% if dropped_rows %}<p class="note">{{ dropped_rows }} incomplete record(s) were excluded during validation.</p>{% endif %}
+  </section>
+
+  <section>
+    <h2>Insights</h2>
+    <ul class="insights">
+      {% for item in insights %}<li>{{ item }}</li>{% endfor %}
+    </ul>
+  </section>
+
+  <section>
+    <h2>Data source</h2>
+    <dl>
+      <dt>Provider</dt><dd>{{ source_name }}</dd>
+      <dt>Endpoint</dt><dd>{{ source_url }}</dd>
+      <dt>Coordinates</dt><dd>{{ coordinates }}</dd>
+      <dt>Timezone</dt><dd>{{ timezone }}</dd>
+      <dt>Records used</dt><dd>{{ rows|length }} daily forecast records</dd>
+    </dl>
+  </section>
+
+  <footer>Generated automatically by AutoBrief v{{ version }}</footer>
+</div>
+</body>
+</html>
