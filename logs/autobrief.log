@@ -1,0 +1,19 @@
+2026-10-10 22:51:28,471 | INFO     | autobrief.cli | AutoBrief started: version=1.0.0 command=generate
+2026-10-10 22:51:28,509 | INFO     | autobrief.workflow | Report workflow started (trigger=manual, format=both, location=London)
+2026-10-10 22:51:28,511 | INFO     | autobrief.api.client | API request: GET https://api.open-meteo.com/v1/forecast params={'latitude': 51.5072, 'longitude': -0.1276, 'daily': 'temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max', 'current': 'temperature_2m,relative_humidity_2m,wind_speed_10m', 'timezone': 'auto', 'forecast_days': 7} (attempt 1/3)
+2026-10-10 22:51:29,843 | INFO     | autobrief.api.client | Data retrieved successfully: 7 daily records
+2026-10-10 22:51:29,883 | INFO     | autobrief.processing.analyzer | Processing completed: 7 rows analysed, 5 insights
+2026-10-10 22:51:30,538 | INFO     | autobrief.reports.generator | Report generated: reports\autobrief_2026-10-10_22-51.html (153971 bytes)
+2026-10-10 22:51:30,665 | INFO     | autobrief.reports.generator | Report generated: reports\autobrief_2026-10-10_22-51.pdf (111457 bytes)
+2026-10-10 22:51:30,668 | INFO     | autobrief.workflow | Report workflow finished in 2.2s: ['reports\\autobrief_2026-10-10_22-51.html', 'reports\\autobrief_2026-10-10_22-51.pdf']
+2026-10-10 22:52:32,086 | INFO     | autobrief.cli | AutoBrief started: version=1.0.0 command=generate
+2026-10-10 22:52:32,086 | INFO     | autobrief.workflow | Report workflow started (trigger=manual, format=both, location=London)
+2026-10-10 22:52:32,086 | INFO     | autobrief.api.client | API request: GET https://api.open-meteo.com/v1/forecast params={'latitude': 51.5072, 'longitude': -0.1276, 'daily': 'temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max', 'current': 'temperature_2m,relative_humidity_2m,wind_speed_10m', 'timezone': 'auto', 'forecast_days': 7} (attempt 1/3)
+2026-10-10 22:53:15,823 | INFO     | autobrief.cli | AutoBrief started: version=1.0.0 command=generate
+2026-10-10 22:53:15,823 | INFO     | autobrief.workflow | Report workflow started (trigger=manual, format=both, location=London)
+2026-10-10 22:53:15,823 | INFO     | autobrief.api.client | API request: GET https://api.open-meteo.com/v1/forecast params={'latitude': 51.5072, 'longitude': -0.1276, 'daily': 'temperature_2m_max,temperature_2m_min,precipitation_sum,wind_speed_10m_max', 'current': 'temperature_2m,relative_humidity_2m,wind_speed_10m', 'timezone': 'auto', 'forecast_days': 7} (attempt 1/3)
+2026-10-10 22:53:16,823 | INFO     | autobrief.api.client | Data retrieved successfully: 7 daily records
+2026-10-10 22:53:16,840 | INFO     | autobrief.processing.analyzer | Processing completed: 7 rows analysed, 5 insights
+2026-10-10 22:53:17,270 | INFO     | autobrief.reports.generator | Report generated: reports\autobrief_2026-10-10_22-53.html (153971 bytes)
+2026-10-10 22:53:17,394 | INFO     | autobrief.reports.generator | Report generated: reports\autobrief_2026-10-10_22-53.pdf (111457 bytes)
+2026-10-10 22:53:17,409 | INFO     | autobrief.workflow | Report workflow finished in 1.6s: ['reports\\autobrief_2026-10-10_22-53.html', 'reports\\autobrief_2026-10-10_22-53.pdf']
